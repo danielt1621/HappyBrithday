@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2D Game Development Journey</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #8E44AD;
+            --secondary-color: #9B59B6;
+            --background-color: #F3E5F5;
+            --text-color: #333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(270deg, #E8DAEF, #D5DBDB, #D1F2EB, #FAD7A1);
+            background-size: 400% 400%;
+            animation: gradientAnimation 15s ease infinite;
+            line-height: 1.6;
+            color: var(--text-color);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+
+
+        .header {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 40px 20px;
+            border-radius: 10px 10px 0 0;
+            animation: colorChange 5s infinite alternate;
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+        }
+
+        .section-toggle {
+            background-color: white;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 15px;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            background-color: #f1e5f8;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .section-header:hover {
+            background-color: #e6d3f1;
+        }
+
+        .section-header h2 {
+            font-size: 1.2rem;
+            color: var(--primary-color);
+        }
+
+        .section-content {
+            display: none;
+            padding: 20px;
+            background-color: white;
+        }
+
+        .section-content.active {
+            display: block;
+        }
+
+        .course-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+        }
+
+        .course-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #e2dde7fb;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .course-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .course-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            margin-top: 10px;
+        }
+
+        .course-link:hover {
+            text-decoration: underline;
+        }
+
+        .youtube-channel {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            background-color: #f9f4fd;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .youtube-channel:hover {
+            background-color: #f1e5f8;
+        }
+
+        .youtube-channel-icon {
+            width: 50px;
+            height: 50px;
+            background-color: #FF0000;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+        }
+
+        .online-source {
+            background-color: #f9f4fd;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 10px;
+            transition: transform 0.3s ease;
+        }
+
+        .online-source:hover {
+            transform: translateY(-5px);
+        }
+
+        .online-source h3 {
+            color: var(--primary-color);
+            margin-bottom: 10px;
+        }
+
+        .online-source-link {
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 10px;
+        }
+
+        .footer {
+            background-color: var(--primary-color);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            border-radius: 0 0 10px 10px;
+        }
+
+
+
+        @keyframes colorChange {
+            0% {
+                background-color: #8E44AD;
+            }
+
+            50% {
+                background-color: #722a91;
+            }
+
+            100% {
+                background-color: #5e197c;
+            }
+        }
+
+        @keyframes fastColorChange {
+            0% {
+                color: #FF69B4;
+            }
+
+          
+            20% {
+                color: #FF4500;
+            }
+
+          
+            40% {
+                color: #FFD700;
+            }
+
+         
+            60% {
+                color: #32CD32;
+            }
+
+     
+            80% {
+                color: #1E90FF;
+            }
+
+        
+            100% {
+                color: #FF69B4;
+            }
+
+    
+        }
+
+        .course-card {
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: #f9f4fd;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .birthday-message {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 4rem;
+            font-family: 'Bing', sans-serif;
+            color: #FF69B4;
+            opacity: 1;
+            transition: opacity 1s ease;
+            z-index: 10;
+            animation: fastColorChange 0.5s infinite;
+            white-space: nowrap;
+            font-weight: 800;
+        }
+
+        .container {
+            display: none;
+            opacity: 0;
+            transition: opacity 3s ease;
+            max-width: 800px;
+            width: 90%;
+            padding: 20px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            background-color: white;
+            position: relative;
+            z-index: 5;
+            margin: 20px auto;
+            overflow-y: auto;
+            max-height: calc(100vh - 40px);
+
+        }
+
+        .container.fade-in {
+            opacity: 1;
+        }
+
+
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+
+        @media (max-width: 768px) {
+            .course-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .birthday-message {
+                font-size: 1.5rem;
+        
+            }
+
+            .container {
+                padding: 10px;
+           
+                margin: 10px;
+          
+            }
+
+            .section-header {
+                padding: 10px;
+            
+            }
+
+            .section-content {
+                padding: 15px;
+            
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <canvas id="confettiCanvas"></canvas>
+    <div id="birthdayMessage" class="birthday-message">!! HAPPY BIRTHDAY NICK !!</div>
+    <div class="container" style="display: none;">
+        <div class="header">
+            <h1>2D Game Development Journey</h1>
+            <p>Your Gateway to Game Development</p>
+        </div>
+
+        <div id="resourceSections"></div>
+
+        <div class="footer">
+            Crafted with ❤️ for Your Game Development Journey
+        </div>
+    </div>
+
+    <script>
+
+
+        // Confetti animation script
+        const canvas = document.getElementById('confettiCanvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const colors = ['#FFC107', '#FF5722', '#4CAF50', '#2196F3', '#9C27B0'];
+        const particles = [];
+
+        function createParticle() {
+            const size = Math.random() * 5 + 2;
+            const x = Math.random() * canvas.width;
+            const y = Math.random() * canvas.height;
+            const color = colors[Math.floor(Math.random() * colors.length)];
+            const speed = Math.random() * 3 + 1;
+            particles.push({ x, y, size, color, speed });
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach((particle, index) => {
+                ctx.beginPath();
+                ctx.arc(particle.x, particle.y, particle.size, 0, Math.PI * 2);
+                ctx.fillStyle = particle.color;
+                ctx.fill();
+                particle.y += particle.speed;
+                if (particle.y > canvas.height) {
+                    particles.splice(index, 1);
+                }
+            });
+            requestAnimationFrame(animate);
+        }
+
+        function startConfetti() {
+            for (let i = 0; i < 100; i++) {
+                createParticle();
+            }
+            animate();
+        }
+
+        window.onload = function () {
+    startConfetti();
+    setTimeout(() => {
+        const birthdayMessage = document.getElementById('birthdayMessage');
+        birthdayMessage.style.opacity = 0; // Fade out the birthday message
+        setTimeout(() => {
+            birthdayMessage.style.display = 'none'; // Hide the message
+
+            const container = document.querySelector('.container');
+            container.style.display = 'block'; // Show the main content
+            container.style.opacity = 0; // Start with opacity 0
+            container.classList.add('fade-in'); // Add fade-in class
+
+            // Gradually change opacity to 1
+            setTimeout(() => {
+                container.style.opacity = 1; // Fade in effect
+            }, 10); // Small delay to ensure the opacity change is applied
+        }, 1000); // Wait for fade out to complete
+    }, 4000); // Show message for 4 seconds
+};
+
+
+
+
+
+
+        const resourceData = {
+            sections: [
+                {
+                    title: "Info",
+                    icon: "ℹ️",
+                    content: [
+                        "I will present to you two insightful and engaging courses from Udemy, specifically focused on 2D game development. These courses will provide you with all the tools and knowledge you need to dive into programming with C# and Unity game development.",
+                        "<br><br>I chose Unity Engine because of its vast and supportive community, its extensive resources, and its global popularity. Don’t worry about the initial challenges; once you get the hang of it, everything will become much easier. Plus, Unity allows you to distribute your games on platforms like STEAM, giving you the opportunity to earn some money from your creations.<br><br>",
+                        "Both courses come with a Udemy certification. While the certificate itself might not guarantee a job, it’s a great way to showcase your skills. If you ever decide to pursue game development professionally, remember that it’s a competitive field. You’ll need to follow your passion, demonstrate your abilities, and seek out the best opportunities that align with your interests.<br><br>",
+                        "My honest thoughts; If you’re looking for a career with high earnings and future potential, game development might not be the easiest path. The industry often requires large teams and collaboration, and with the rise of AI, it’s likely to undergo significant changes. However, game development is a fascinating field that can spark new ideas and interests. And if it’s just a hobby, it’s an incredibly rewarding one.<br><br>",
+                        "Other than the courses, you will finnd material like some of the top YouTube channels that cover a lot on 2D game development. Along with useful online sources that will provide you with everything you need to start this journey!<br><br>",
+                        "These courses are paid, but you have the freedom to use the money for any other courses or purpose you prefer. If you find a different course that costs more, just let me know, and I’ll be glad to cover all the extras cost."
+                                            ]
+                },
+                {
+                    title: "Udemy Courses",
+                    icon: "📚",
+                    content: [
+                        {
+                            name: "Complete Unity 2D and C# Game Developer Megacourse",
+                            price: "20 €",
+                            link: "https://www.udemy.com/course/complete-unity-2d-megacourse-beginner-to-expert/",
+                            description: "Learn Unity basics, C# programming, game mechanics, and create 5 different projects.",
+                            skills: [
+                                "Unity elements",
+                                "C# programming",
+                                "Game mechanics",
+                                "Animation principles",
+                                "Asset creation",
+                                "Multi-device game development"
+                            ]
+                        },
+                        {
+                            name: "Master 2D Game Development: Create 4 Complete Games in Unity",
+                            price: "20 €",
+                            link: "https://www.udemy.com/course/master-2d-game-development-create-4-complete-games-in-unity/",
+                            description: "Dive deep into 2D game development with practical game creation.",
+                            skills: [
+                                "Unity Basics",
+                                "Physics-Based Games",
+                                "Procedural Level Generation",
+                                "AI and Shooting Mechanics",
+                                "2D Platformer Development"
+                            ]
+                        }
+                    ]
+                },
+                {
+                    title: "YouTube Channels",
+                    icon: "🎥",
+                    content: [
+                        {
+                            name: "Brackeys",
+                            link: "https://www.youtube.com/@Brackeys"
+                        },
+                        {
+                            name: "Code Monkey",
+                            link: "https://www.youtube.com/@CodeMonkeyUnity"
+                        },
+                        {
+                            name: "Blackthomprod",
+                            link: "https://www.youtube.com/@Blackthornprod"
+                        },
+                        {
+                            name: "Game Maker's",
+                            link: "https://www.youtube.com/@GMTK"
+                        }
+                    ]
+                },
+                {
+                    title: "Online Learning Resources",
+                    icon: "💻",
+                    content: [
+                        {
+                            name: "Unity Learn",
+                            link: "https://learn.unity.com/",
+                            description: "Unity Learn offers a variety of free and paid courses, tutorials, and projects specifically designed for Unity users.The platform includes pathways for beginners, such as the “2D Beginner: Adventure Game” course, which is perfect for those new to game development."
+                        },
+                        {
+                            name: "GameDev.tv",
+                            link: "https://www.gamedev.tv/",
+                            description: "GameDev.tv provides comprehensive courses on game development, including Unity and C#. Their courses are well-structured and suitable for beginners.The “Complete C# Unity Game Developer 2D” course is highly recommended and includes hands-on projects and a supportive community."
+                        },
+                        {
+                            name: "Reddit Communities",
+                            link: "https://www.reddit.com/r/Unity2D/search/",
+                            description: "Online communities and forums where you can connect with other game developers, ask questions, and share your progress. There are many, but I will only include one: r/Unity2D"
+                        },
+                        {
+                            name: "Zenva Academy",
+                            link: "https://academy.zenva.com/",
+                            description: "Zenva Academy offers a variety of courses on game development, including a focus on 2D games. They provide both free and paid options, covering everything from beginner to advanced topics. Their courses are project-based, ensuring practical experience, and they offer mini-degrees in game development."
+                        },
+                        {
+                            name: "RocketBrush Studio Blog",
+                            link: "https://rocketbrush.com/blog",
+                            description: "This blog provides insights into the best 2D game engines, tools, and techniques. It’s a great resource for understanding the different options available and how to choose the right tools for your projects. Detailed comparisons of game engines like Unity, Godot, and GameMaker Studio, along with practical tips for game development."
+                        }
+                    ]
+                }
+            ]
+        };
+
+        function createResourceSections() {
+            const container = document.getElementById('resourceSections');
+
+            resourceData.sections.forEach((section, index) => {
+                const sectionElement = document.createElement('div');
+                sectionElement.className = 'section-toggle';
+
+                const sectionHeader = document.createElement('div');
+                sectionHeader.className = 'section-header';
+                sectionHeader.innerHTML = `
+                    <h2>${section.icon} ${section.title}</h2>
+                    <span>▼</span>
+                `;
+
+                const sectionContent = document.createElement('div');
+                sectionContent.className = 'section-content';
+
+                // For the Info section
+                if (section.title === "Info") {
+                    section.content.forEach(paragraph => {
+                        const p = document.createElement('p');
+                        p.innerHTML = paragraph;
+                        sectionContent.appendChild(p);
+                    });
+                }
+                else if (section.title === "Udemy Courses") {
+                    const courseGrid = document.createElement('div');
+                    courseGrid.className = 'course-grid';
+
+                    section.content.forEach(course => {
+                        const courseCard = document.createElement('div');
+                        courseCard.className = 'course-card';
+                        courseCard.innerHTML = `
+                            <h3>${course.name}</h3>
+                            <p style="color: #8E44AD; font-weight: bold;">${course.price}</p>
+                            <p>${course.description}</p>
+                            <ul>
+                                ${course.skills.map(skill => `<li>${skill}</li>`).join('')}
+                            </ul>
+                            <a href="${course.link}" target="_blank" class="course-link">
+                                View Course →
+                            </a>
+                        `;
+                        courseGrid.appendChild(courseCard);
+                    });
+
+                    sectionContent.appendChild(courseGrid);
+                }
+                else if (section.title === "YouTube Channels") {
+                    section.content.forEach(channel => {
+                        const channelElement = document.createElement('div');
+                        channelElement.className = 'youtube-channel';
+                        channelElement.innerHTML = `
+                            <div class="youtube-channel-icon">
+                                <span>YT</span>
+                            </div>
+                            <div>
+                                <h3>${channel.name}</h3>
+                                <a href="${channel.link}" target="_blank" class="course-link">
+                                    View Channel →
+                                </a>
+                            </div>
+                        `;
+                        sectionContent.appendChild(channelElement);
+                    });
+                }
+                else if (section.title === "Online Learning Resources") {
+                    section.content.forEach(source => {
+                        const sourceElement = document.createElement('div');
+                        sourceElement.className = 'online-source';
+                        sourceElement.innerHTML = `
+                            <h3>${source.name}</h3>
+                            <p>${source.description}</p>
+                            <a href="${source.link}" target="_blank" class="online-source-link">
+                                Visit Resource →
+                            </a>
+                        `;
+                        sectionContent.appendChild(sourceElement);
+                    });
+                }
+
+                sectionHeader.addEventListener('click', () => {
+                    const isActive = sectionContent.classList.contains('active');
+
+                    // Close all sections first
+                    document.querySelectorAll('.section-content').forEach(content => {
+                        content.classList.remove('active');
+                    });
+
+                    // Toggle clicked section
+                    if (!isActive) {
+                        sectionContent.classList.add('active');
+                    }
+                });
+
+                sectionElement.appendChild(sectionHeader);
+                sectionElement.appendChild(sectionContent);
+                container.appendChild(sectionElement);
+            });
+        }
+
+        // Initialize sections when page loads
+        createResourceSections();
+    </script>
+</body>
+
+</html>
